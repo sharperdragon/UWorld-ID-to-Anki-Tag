@@ -1,13 +1,13 @@
 body {
     font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     margin: 20px;
-    padding: 0;
-    background-color: #f8f9fa;
+    padding: 1px;
+    background-color: aliceblue;
 }
 
 .container {
     max-width: 98vw;
-    margin: 0 auto;
+    margin: 5vh auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 8px;
