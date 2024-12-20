@@ -63,15 +63,14 @@ div#mode_section {
     padding: 2vh;
     display: inline-block;
 }
+
 div#question_list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Auto-fill columns with a minimum width of 150px */
     gap: 20px; /* Adjust gap for better column spacing */
     padding: 10px;
-    overflow-x: auto; /* Enable horizontal scroll for overflow */
-    border: 1px solid lightblue;
-    border-radius: 10px;
-    max-height: 500px; /* Optional: set a max height for the list */
+    max-height: 400px; /* Set a max-height to control vertical overflow */
+    overflow: auto; /* Enable both vertical and horizontal scroll for overflow */
 }
 
 #question_list label {
@@ -91,8 +90,4 @@ div#question_list {
 
 #question_list input[type="checkbox"] {
     margin-right: 10px; /* Space between checkbox and text */
-}
-
-#question_list label:hover {
-    background-color: #eef3f8;
 }
