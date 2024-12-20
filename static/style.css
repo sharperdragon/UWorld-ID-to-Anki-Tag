@@ -63,29 +63,30 @@ div#mode_section {
     padding: 2vh;
     display: inline-block;
 }
-
 div#question_list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Auto-fill columns with a minimum width of 150px */
-    gap: 20px; /* Adjust gap for better column spacing */
+    gap: 10px; /* Adjust gap for better column spacing */
     padding: 10px;
-    max-height: 400px; /* Set a max-height to control vertical overflow */
-    overflow: auto; /* Enable both vertical and horizontal scroll for overflow */
+    max-height: 100vh; /* Allow it to take up full vertical space */
+    overflow-x: auto; /* Ensure horizontal scrolling is enabled */
+    overflow-y: hidden; /* Disable vertical overflow */
+    white-space: nowrap; /* Prevent wrapping inside labels */
+    width: 100%;
 }
 
 #question_list label {
-    display: flex;
-    align-items: center; /* Vertically align the checkbox and text */
-    justify-content: flex-start; /* Ensure proper horizontal spacing */
-    padding: 10px; /* Space out content inside label */
+    display: block;
+    box-sizing: border-box;
+    padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    white-space: nowrap; /* Prevent wrapping of text */
-    min-width: 150px; /* Ensure labels have a minimum width */
-    box-sizing: border-box; /* Include padding in width/height calculations */
-    word-wrap: break-word; /* Break long words if necessary to prevent overflow */
+    white-space: nowrap; /* Ensure no wrapping of text */
+    min-width: 150px; /* Enforce a minimum width to maintain a column layout */
+    box-sizing: border-box;
+    word-wrap: break-word; /* Break long words if necessary */
 }
 
 #question_list input[type="checkbox"] {
