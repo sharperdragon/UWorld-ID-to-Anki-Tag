@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UWorld to Anki Tag Converter</title>
-    <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
@@ -69,7 +69,7 @@
             }
         });
 
-        // Generate Output: Sends selected indices and mode to the server
+        // Generate Output: Sends selected indices and mode to the Netlify function
         document.getElementById("generate_output").addEventListener("click", async () => {
             const inputIDs = document.getElementById("input_ids").value.trim();
             const mode = document.querySelector("input[name='mode']:checked").value;
@@ -77,7 +77,7 @@
                                          .map(input => input.value);
 
             try {
-                const response = await fetch("/process", {
+                const response = await fetch("/.netlify/functions/process", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ ids: inputIDs, mode: mode, selected_numbers: selectedIndices })
@@ -85,7 +85,7 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    document.getElementById("output_text").value = data.output;
+                    document.getElementById("output_text").value = JSON.stringify(data.output, null, 2);
                 } else {
                     const error = await response.json();
                     alert(error.error || "An error occurred.");
