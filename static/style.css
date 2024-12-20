@@ -24,7 +24,8 @@ label {
     font-weight: bold;
     margin-top: 10px;
     display: block;
-    padding:1%;
+    padding:1px
+    ;
 }
 
 textarea {
@@ -41,7 +42,7 @@ button {
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 4px;
+    border-radius: 6%;
     cursor: pointer;
     margin-top: 10px;
     padding:1%;
@@ -49,16 +50,22 @@ button {
 
 button:hover {
     background-color: #0056b3;
+    color: offwhite;
+
 }
 
 #mode_section {
-    margin: 10px 0;
+    padding: 10px ;
 }
 
 #mode_section label {
     margin-right: 20px;
+    display:inline-block;
+
 }
 
 #question_list label {
     display: block;
+    max-height:50vh;
+    overflow-y:scroll
 }
