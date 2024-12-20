@@ -73,6 +73,8 @@ div#question_list {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    border:1px solid #b7d7fa;
+    border-radius: 10px;
 }
 
 /* Styling for each individual label (checkbox item) */
