@@ -24,9 +24,10 @@ def process():
     else:  # Selected Questions
         output_ids = [qid for idx, qid in enumerate(ids, start=1) if idx in selected_numbers]
 
-    # Generate Anki tags
-    output = " OR ".join([f"tag:*{qid}*" for qid in output_ids])
-    return jsonify({"output": output})
+    # Group IDs into columns of 10
+    columns = [ids[i:i + 10] for i in range(0, len(ids), 10)]
+
+    return jsonify({"columns": columns})
 
 if __name__ == "__main__":
     app.run(debug=True)

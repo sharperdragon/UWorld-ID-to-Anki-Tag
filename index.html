@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My App</title>
+    <title>UWorld to Anki Tag Converter</title>
     <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
 </head>
 <body>
@@ -25,7 +25,8 @@
         </div>
 
         <!-- Generated Questions -->
-        <div id="question_list"></div>
+        <h2>Generated Questions</h2>
+        <div id="question_list" class="question-list"></div>
 
         <!-- Output Section -->
         <button id="generate_output">Generate Output</button>
@@ -34,6 +35,7 @@
     </div>
 
     <script>
+        // Generate List: Splits input IDs and groups into columns of 10
         document.getElementById("generate_list").addEventListener("click", () => {
             const inputIDs = document.getElementById("input_ids").value.trim();
             const questionList = document.getElementById("question_list");
@@ -45,32 +47,51 @@
             }
 
             const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-            ids.forEach((id, index) => {
-                const label = document.createElement("label");
-                label.innerHTML = `<input type="checkbox" value="${index}"> ${index + 1}. ${id}`;
-                questionList.appendChild(label);
-                questionList.appendChild(document.createElement("br"));
-            });
+            const columns = [];
+            const numColumns = Math.ceil(ids.length / 10);
+
+            // Create columns and append checkboxes
+            for (let i = 0; i < numColumns; i++) {
+                const columnDiv = document.createElement("div");
+                columnDiv.className = "question-column";
+                const start = i * 10;
+                const end = Math.min(start + 10, ids.length);
+
+                for (let j = start; j < end; j++) {
+                    const label = document.createElement("label");
+                    label.innerHTML = `<input type="checkbox" value="${j + 1}"> ${j + 1}. ${ids[j]}`;
+                    columnDiv.appendChild(label);
+                    columnDiv.appendChild(document.createElement("br"));
+                }
+
+                columns.push(columnDiv);
+                questionList.appendChild(columnDiv);
+            }
         });
 
+        // Generate Output: Sends selected indices and mode to the server
         document.getElementById("generate_output").addEventListener("click", async () => {
             const inputIDs = document.getElementById("input_ids").value.trim();
             const mode = document.querySelector("input[name='mode']:checked").value;
             const selectedIndices = Array.from(document.querySelectorAll("#question_list input:checked"))
                                          .map(input => input.value);
 
-            const response = await fetch("/process_ids", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({ input_ids: inputIDs, mode: mode, selected_indices: selectedIndices })
-            });
+            try {
+                const response = await fetch("/process", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ids: inputIDs, mode: mode, selected_numbers: selectedIndices })
+                });
 
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById("output_text").value = data.output;
-            } else {
-                const error = await response.json();
-                alert(error.error);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById("output_text").value = data.output;
+                } else {
+                    const error = await response.json();
+                    alert(error.error || "An error occurred.");
+                }
+            } catch (error) {
+                alert("Failed to communicate with the server. Please try again.");
             }
         });
     </script>
