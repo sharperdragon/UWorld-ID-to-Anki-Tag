@@ -68,7 +68,7 @@ div#mode_section {
 /* Container for question list */
 div#question_list {
     display: flex;
-    flex-wrap: nowrap;  /* Allow wrapping of items to next row */
+    flex-wrap: wrap;  /* Allow wrapping of items to next row */
     gap: 10px;  /* Space between items */
     overflow-x: auto;  /* Enable horizontal scrolling */
     overflow-y: hidden;  /* Disable vertical overflow */
