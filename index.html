@@ -34,10 +34,11 @@
     </div>
 
     <script>
+        // Event listener for generating the list of questions
         document.getElementById("generate_list").addEventListener("click", () => {
             const inputIDs = document.getElementById("input_ids").value.trim();
             const questionList = document.getElementById("question_list");
-            questionList.innerHTML = "";
+            questionList.innerHTML = ""; // Clear any previous list
 
             if (!inputIDs) {
                 alert("Please enter question IDs.");
@@ -47,31 +48,37 @@
             const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
             ids.forEach((id, index) => {
                 const label = document.createElement("label");
-                label.innerHTML = `<input type="checkbox" value="${index}"> ${index + 1}. ${id}`;
+                label.innerHTML = `<input type="checkbox" value="${id}"> ${index + 1}. ${id}`;
                 questionList.appendChild(label);
                 questionList.appendChild(document.createElement("br"));
             });
         });
 
-        document.getElementById("generate_output").addEventListener("click", async () => {
+        // Event listener for generating the output based on the selected questions
+        document.getElementById("generate_output").addEventListener("click", () => {
             const inputIDs = document.getElementById("input_ids").value.trim();
             const mode = document.querySelector("input[name='mode']:checked").value;
-            const selectedIndices = Array.from(document.querySelectorAll("#question_list input:checked"))
-                                         .map(input => input.value);
+            const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
+                                       .map(input => input.value);
 
-            const response = await fetch("/process_ids", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({ input_ids: inputIDs, mode: mode, selected_indices: selectedIndices })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById("output_text").value = data.output;
-            } else {
-                const error = await response.json();
-                alert(error.error);
+            let outputIDs = [];
+            if (mode === "All") {
+                outputIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+            } else if (mode === "Select Questions") {
+                outputIDs = selectedIDs;
+            } else if (mode === "Exclude Questions") {
+                const allIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+                outputIDs = allIDs.filter(id => !selectedIDs.includes(id));
             }
+
+            if (!outputIDs.length) {
+                alert("No IDs selected for output.");
+                return;
+            }
+
+            // Create output as Anki tags
+            const output = outputIDs.map(id => `tag:*${id}*`).join(" OR ");
+            document.getElementById("output_text").value = output;
         });
     </script>
 </body>
