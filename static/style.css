@@ -69,7 +69,7 @@ div#question_list {
     gap: 10px;  /* Space between items */
     overflow-x: auto;  /* Enable horizontal scrolling */
     overflow-y: hidden;  /* Disable vertical overflow */
-    width: 90%;
+    width: 95%;
     padding: 10px;
     box-sizing: border-box;
     border:1px solid #b7d7fa;
