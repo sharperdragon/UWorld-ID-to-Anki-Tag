@@ -79,3 +79,105 @@ div#question_list {
     box-sizing: border-box;
     width: calc(10% - 10px); /* Ensure only 10 questions per row */
 }
+
+
+
+
+body {
+    font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    margin: 20px;
+    padding: 1px;
+    max-width: -webkit-fill-available;
+    background-color: aliceblue;
+}
+
+.container {
+    max-width: 98vw;
+    margin: 3% auto;
+    padding: 2%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    padding: 1%;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    padding: 1px;
+}
+
+textarea {
+    width: 95%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1%;
+    max-width: -webkit-fill-available;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6%;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 1%;
+}
+
+button:hover {
+    background-color: #0056b3;
+    color: offwhite;
+}
+
+div#mode_section {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+#mode_section label {
+    padding: 2vh;
+    display: inline-block;
+}
+/* Container for question list */
+div#question_list {
+    display: flex;
+    flex-wrap: nowrap;  /* Allow wrapping of items to next row */
+    gap: 10px;  /* Space between items */
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    overflow-y: hidden;  /* Disable vertical overflow */
+    width: 95%;
+    padding: 10px;
+    box-sizing: border-box;
+    border:1px solid #b7d7fa;
+    border-radius: 10px;
+}
+
+/* Styling for each individual label (checkbox item) */
+#question_list label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(10% - 10px);  /* 10 questions per row, adjust the width accordingly */
+    min-width: 150px;
+    word-wrap: break-word;  /* Break long words if necessary */
+}
+
+/* Ensures the checkboxes and text are aligned correctly */
+#question_list input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and text */
+}
