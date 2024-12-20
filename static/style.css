@@ -90,7 +90,7 @@ div#question_list {
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    width: calc(10% + 30px);;  /* 10 questions per row, adjust the width accordingly */
+    width: calc(10% + 40px);;  /* 10 questions per row, adjust the width accordingly */
     min-width: 150px;
     word-wrap: break-word;  /* Break long words if necessary */
 }
