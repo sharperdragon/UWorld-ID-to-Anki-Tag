@@ -18,14 +18,14 @@ body {
 h1 {
     text-align: center;
     color: #333333;
-    padding:1%;
+    padding: 1%;
 }
 
 label {
     font-weight: bold;
     margin-top: 10px;
     display: block;
-    padding:1px;
+    padding: 1px;
 }
 
 textarea {
@@ -34,7 +34,7 @@ textarea {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding:1%;
+    padding: 1%;
     max-width: -webkit-fill-available;
 }
 
@@ -46,7 +46,7 @@ button {
     border-radius: 6%;
     cursor: pointer;
     margin-top: 10px;
-    padding:1%;
+    padding: 1%;
 }
 
 button:hover {
@@ -55,26 +55,41 @@ button:hover {
 }
 
 div#mode_section {
-    padding: 10px ;
+    padding: 10px;
     margin-right: 20px;
 }
+
 #mode_section label {
-    padding:2vh;
+    padding: 2vh;
     display: inline-block;
 }
 
 div#question_list {
-        display: flex;
-        overflow-x: scroll;
-        gap: calc(25vw-10px);
-        align-content: flex-start;
-        border: 1px solid lightblue;
-        border-radius: 10px;
-    }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Automatically create columns based on screen size */
+    gap: 10px; /* Space between items */
+    padding: 10px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    max-height: 500px; /* Optional: set a max height for the list */
+}
 
 #question_list label {
-    display: block;
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+#question_list input[type="checkbox"] {
+    margin-right: 10px;
+}
 
+#question_list label:hover {
+    background-color: #eef3f8;
 }
