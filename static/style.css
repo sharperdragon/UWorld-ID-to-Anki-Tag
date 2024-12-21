@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: column; /* Stacks items vertically */
     align-items: unset; /* Centers items horizontally */
-    gap: 0; /* Adds consistent spacing */
+    gap: 3px; /* Adds consistent spacing */
 }
 
 h1 {
@@ -65,6 +65,7 @@ button {
     position: relative; /* Lock button in place */
     box-sizing: border-box; /* Ensure padding and border don't affect size */
     z-index: 1; /* Ensure hover effects stay above other elements */
+    margin:10px;
 }
 
 /* Hover effect without shifting elements */
@@ -77,8 +78,8 @@ button:hover {
 
 div#selection_buttons{
     margin 0 0 1px 0;
-    margin: 0;
-    padding: 0;
+    margin-top: 4px;
+    padding: 10;
 }
 button#generate_output{
     margin: 0 auto;
@@ -90,8 +91,8 @@ div#mode_section {
 }
 
 #mode_section label {
-    padding: 1vh;
     display: inline-block;
+    margin-top:20px;
 }
 
 /* Container for question list */
