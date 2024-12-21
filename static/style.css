@@ -50,8 +50,8 @@ button {
     margin-top: 10px;
     padding: 1%;
 }
-button#generate_ouput{
-    padding: calc(1px+1%);
+button #generate_ouput{
+    padding: calc(1px + 1%);
     font-size: 110%;
     margin-left: 2%;
 }
