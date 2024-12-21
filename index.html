@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UWorld to Anki Tag Converter</title>
-   <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
+    <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
     <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
 </head>
 <body>
@@ -12,18 +12,17 @@
         <h1>UWorld to Anki Tag Converter</h1>
 
         <!-- Input Section -->
-        <label for="input_ids">Input Question IDs (comma-separated):</label>
+        <label for="input_ids">Question IDs (comma-separated):</label>
         <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
 
-        <!-- Mode Selection -->
-        <div id="mode_section">
-            <label><input type="radio" name="mode" value="All" checked> All</label>
-            <label><input type="radio" name="mode" value="Select Questions"> Selected Questions</label>
-            <label><input type="radio" name="mode" value="Exclude Questions"> Exclude Questions</label>
+        <!-- Buttons for Select All/Deselect All -->
+        <div id="selection_buttons">
+            <button id="select_all">Select All</button>
+            <button id="deselect_all">Deselect All</button>
         </div>
 
         <!-- Generated Questions -->
-        <div id="question_list" style="display: none;"></div>
+        <div id="question_list"></div>
 
         <!-- Output Section -->
         <button id="generate_output">Generate</button>
@@ -34,16 +33,24 @@
     <script>
         const inputField = document.getElementById("input_ids");
         const questionList = document.getElementById("question_list");
-        const modeOptions = document.querySelectorAll("input[name='mode']");
+        const selectAllButton = document.getElementById("select_all");
+        const deselectAllButton = document.getElementById("deselect_all");
 
-        // Function to generate the question list
-        const generateQuestionList = () => {
-            const inputIDs = inputField.value.trim();
+        // Update the question list dynamically when input changes
+        inputField.addEventListener("input", updateQuestionList);
+
+        // Event listener for Select All button
+        selectAllButton.addEventListener("click", () => toggleSelection(true));
+
+        // Event listener for Deselect All button
+        deselectAllButton.addEventListener("click", () => toggleSelection(false));
+
+        function updateQuestionList() {
             questionList.innerHTML = ""; // Clear previous list
+            const inputIDs = inputField.value.trim();
 
             if (!inputIDs) {
-                alert("Please enter question IDs.");
-                return;
+                return; // Do nothing if input is empty
             }
 
             const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
@@ -53,49 +60,28 @@
                 questionList.appendChild(label);
                 questionList.appendChild(document.createElement("br"));
             });
+        }
 
-            questionList.style.display = "flex"; // Show the question list
-        };
+        function toggleSelection(selectAll) {
+            const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll;
+            });
+        }
 
-        // Function to toggle the question list based on selected mode
-        const toggleQuestionList = () => {
-            const selectedMode = document.querySelector("input[name='mode']:checked").value;
-            if (selectedMode === "All") {
-                questionList.style.display = "none"; // Hide the list for "All" mode
-            } else {
-                generateQuestionList(); // Generate and show the list for other modes
-            }
-        };
-
-        // Attach event listener to mode radio buttons
-        modeOptions.forEach(option => {
-            option.addEventListener("change", toggleQuestionList);
-        });
-
-        // Generate the output when "Generate Output" is clicked
+        // Generate the output when "Generate" is clicked
         document.getElementById("generate_output").addEventListener("click", () => {
             const inputIDs = inputField.value.trim();
-            const mode = document.querySelector("input[name='mode']:checked").value;
             const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
                                        .map(input => input.value);
 
-            let outputIDs = [];
-            if (mode === "All") {
-                outputIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-            } else if (mode === "Select Questions") {
-                outputIDs = selectedIDs;
-            } else if (mode === "Exclude Questions") {
-                const allIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-                outputIDs = allIDs.filter(id => !selectedIDs.includes(id));
-            }
-
-            if (!outputIDs.length) {
+            if (!selectedIDs.length) {
                 alert("No IDs selected for output.");
                 return;
             }
 
             // Create output as Anki tags
-            const output = outputIDs.map(id => `tag:*${id}*`).join(" OR ");
+            const output = selectedIDs.map(id => `tag:*${id}*`).join(" OR ");
             document.getElementById("output_text").value = output;
         });
     </script>
