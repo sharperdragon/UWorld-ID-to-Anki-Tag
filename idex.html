@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWorld to Anki Tag Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>UWorld to Anki Tag Converter</h1>
+
+        <!-- Input Section -->
+        <label for="input_ids">Input Question IDs (comma-separated):</label>
+        <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
+
+        <!-- Mode Selection -->
+        <div id="mode_section">
+            <label><input type="radio" name="mode" value="All" checked> All</label>
+            <label><input type="radio" name="mode" value="Select Questions"> Selected Questions</label>
+            <label><input type="radio" name="mode" value="Exclude Questions"> Exclude Questions</label>
+        </div>
+
+        <!-- Generated Questions -->
+        <div id="question_list" style="display: none;"></div>
+
+        <!-- Output Section -->
+        <button id="generate_output">Generate Output</button>
+        <label for="output_text">Generated Output:</label>
+        <textarea id="output_text" rows="5" readonly></textarea>
+    </div>
+
+    <script>
+        const inputField = document.getElementById("input_ids");
+        const questionList = document.getElementById("question_list");
+        const modeOptions = document.querySelectorAll("input[name='mode']");
+
+        // Function to generate the question list
+        const generateQuestionList = () => {
+            const inputIDs = inputField.value.trim();
+            questionList.innerHTML = ""; // Clear previous list
+
+            if (!inputIDs) {
+                alert("Please enter question IDs.");
+                return;
+            }
+
+            const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+            ids.forEach((id, index) => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type="checkbox" value="${id}"> ${index + 1}. ${id}`;
+                questionList.appendChild(label);
+                questionList.appendChild(document.createElement("br"));
+            });
+
+            questionList.style.display = "flex"; // Show the question list
+        };
+
+        // Function to toggle the question list based on selected mode
+        const toggleQuestionList = () => {
+            const selectedMode = document.querySelector("input[name='mode']:checked").value;
+            if (selectedMode === "All") {
+                questionList.style.display = "none"; // Hide the list for "All" mode
+            } else {
+                generateQuestionList(); // Generate and show the list for other modes
+            }
+        };
+
+        // Attach event listener to mode radio buttons
+        modeOptions.forEach(option => {
+            option.addEventListener("change", toggleQuestionList);
+        });
+
+        // Generate the output when "Generate Output" is clicked
+        document.getElementById("generate_output").addEventListener("click", () => {
+            const inputIDs = inputField.value.trim();
+            const mode = document.querySelector("input[name='mode']:checked").value;
+            const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
+                                       .map(input => input.value);
+
+            let outputIDs = [];
+            if (mode === "All") {
+                outputIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+            } else if (mode === "Select Questions") {
+                outputIDs = selectedIDs;
+            } else if (mode === "Exclude Questions") {
+                const allIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+                outputIDs = allIDs.filter(id => !selectedIDs.includes(id));
+            }
+
+            if (!outputIDs.length) {
+                alert("No IDs selected for output.");
+                return;
+            }
+
+            // Create output as Anki tags
+            const output = outputIDs.map(id => `tag:*${id}*`).join(" OR ");
+            document.getElementById("output_text").value = output;
+        });
+    </script>
+</body>
+</html>
