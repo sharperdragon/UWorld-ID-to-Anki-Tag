@@ -56,9 +56,22 @@
             const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
             ids.forEach((id, index) => {
                 const label = document.createElement("label");
-                label.innerHTML = `<input type="checkbox" value="${id}"> ${index + 1}. ${id}`;
+
+                // Create number and ID with proper formatting
+                const numberSpan = document.createElement("span");
+                numberSpan.className = "number";
+                numberSpan.textContent = `${index + 1})`;
+
+                const idSpan = document.createElement("span");
+                idSpan.className = "id";
+                idSpan.textContent = ` ${id}`;
+
+                // Append to label
+                label.innerHTML = `<input type="checkbox" value="${id}"> `;
+                label.appendChild(numberSpan);
+                label.appendChild(idSpan);
+
                 questionList.appendChild(label);
-                questionList.appendChild(document.createElement("br"));
             });
         }
 
