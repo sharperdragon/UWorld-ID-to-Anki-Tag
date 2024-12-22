@@ -1,4 +1,110 @@
-/* Ensure question list border is grey */
+/* General body styling */
+body {
+    font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    margin: 20px;
+    padding: 1px;
+    max-width: -webkit-fill-available;
+    background-color: aliceblue;
+}
+
+/* Main container */
+.container {
+    max-width: 98vw;
+    margin: 3% auto;
+    padding: 2%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: unset; /* Default alignment for items */
+    gap: 3px; /* Adds consistent spacing */
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #333333;
+    padding: 1%;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin: 0;
+    display: block;
+    padding: 1px;
+}
+
+/* Textarea styling */
+textarea {
+    width: 95%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1%;
+    max-width: -webkit-fill-available;
+}
+
+/* Ensure all divs maintain consistent height */
+div {
+    position: relative;
+    min-height: 50px; /* Set a minimum height */
+    margin: 10px 0; /* Space around divs */
+}
+
+/* Button Styles */
+button {
+    background-color: #007bff;
+    display: inline-flex;
+    gap: 10px;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 105%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 1;
+    margin: 10px;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #0c66c6;
+    color: offwhite;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px); /* Subtle hover effect */
+}
+
+/* Selection buttons container */
+div#selection_buttons {
+    margin: 0 0 1px 0;
+    margin-top: 4px;
+    padding: 10;
+}
+
+/* Generate output button */
+button#generate_output {
+    margin: 0 auto;
+}
+
+/* Mode section styling */
+div#mode_section {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+#mode_section label {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* Question list container */
 div#question_list {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping of items to next row */
@@ -8,12 +114,12 @@ div#question_list {
     width: 95%;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #ddd; /* Light grey border */
+    border: 1px solid #ddd; /* Grey border */
     border-radius: 10px;
-    min-height: 100px; /* Set a fixed height */
+    min-height: 100px; /* Fixed height */
 }
 
-/* Styling for each individual label (checkbox item) */
+/* Styling for individual question items */
 #question_list label {
     display: flex;
     align-items: center;
@@ -24,23 +130,24 @@ div#question_list {
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    width: calc(10% + 40px); /* 10 questions per row, adjust the width accordingly */
+    width: calc(10% + 40px); /* Adjusted for 10 questions per row */
     min-width: 150px;
     word-wrap: break-word; /* Break long words if necessary */
     max-height: 38px;
 }
 
-/* Styling for number and ID text */
+/* Number formatting */
 #question_list .number {
     font-weight: bold;
-    opacity: 1; /* Full opacity for the question number */
+    opacity: 1; /* Full opacity for question number */
 }
 
+/* ID formatting */
 #question_list .id {
-    opacity: 0.7; /* More transparent for the Question ID */
+    opacity: 0.7; /* Reduced opacity for question IDs */
 }
 
-/* Ensures the checkboxes and text are aligned correctly */
+/* Checkbox alignment */
 #question_list input[type="checkbox"] {
     margin-right: 10px; /* Space between checkbox and text */
 }
