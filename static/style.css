@@ -1,4 +1,3 @@
-/* General body styling */
 body {
     font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     margin: 20px;
@@ -7,7 +6,6 @@ body {
     background-color: aliceblue;
 }
 
-/* Main container */
 .container {
     max-width: 98vw;
     margin: 3% auto;
@@ -17,18 +15,16 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Stacks items vertically */
-    align-items: unset; /* Default alignment for items */
+    align-items: unset; /* Centers items horizontally */
     gap: 3px; /* Adds consistent spacing */
 }
 
-/* Header styling */
 h1 {
     text-align: center;
     color: #333333;
     padding: 1%;
 }
 
-/* Labels */
 label {
     font-weight: bold;
     margin: 0;
@@ -36,7 +32,6 @@ label {
     padding: 1px;
 }
 
-/* Textarea styling */
 textarea {
     width: 95%;
     margin-bottom: 10px;
@@ -47,10 +42,10 @@ textarea {
     max-width: -webkit-fill-available;
 }
 
-/* Ensure all divs maintain consistent height */
+/* Fix all divs to maintain consistent height */
 div {
-    position: relative;
-    min-height: 50px; /* Set a minimum height */
+    position: relative; /* Prevents hover effects from changing layout */
+    min-height: 50px; /* Set a minimum height for all divs */
     margin: 10px 0; /* Space around divs */
 }
 
@@ -67,33 +62,31 @@ button {
     font-size: 105%;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
-    box-sizing: border-box;
-    z-index: 1;
+    position: relative; /* Lock button in place */
+    box-sizing: border-box; /* Ensure padding and border don't affect size */
+    z-index: 1; /* Ensure hover effects stay above other elements */
     margin: 10px;
 }
 
-/* Button hover effect */
+/* Hover effect without shifting elements */
 button:hover {
     background-color: #0c66c6;
     color: offwhite;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(2px); /* Subtle hover effect */
+    transform: translateY(2px); /* Hover effect without affecting layout */
 }
 
-/* Selection buttons container */
 div#selection_buttons {
     margin: 0 0 1px 0;
     margin-top: 4px;
     padding: 10;
 }
 
-/* Generate output button */
 button#generate_output {
     margin: 0 auto;
 }
 
-/* Mode section styling */
+/* Specific section styling */
 div#mode_section {
     padding: 10px;
     margin-right: 20px;
@@ -104,7 +97,7 @@ div#mode_section {
     margin-top: 20px;
 }
 
-/* Question list container */
+/* Container for question list */
 div#question_list {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping of items to next row */
@@ -114,12 +107,12 @@ div#question_list {
     width: 95%;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #ddd; /* Grey border */
+    border: 1px solid #b7d7fa;
     border-radius: 10px;
-    min-height: 100px; /* Fixed height */
+    min-height: 100px; /* Set a fixed height */
 }
 
-/* Styling for individual question items */
+/* Styling for each individual label (checkbox item) */
 #question_list label {
     display: flex;
     align-items: center;
@@ -130,24 +123,22 @@ div#question_list {
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    width: calc(10% + 40px); /* Adjusted for 10 questions per row */
+    width: calc(10% + 40px); /* 10 questions per row, adjust the width accordingly */
     min-width: 150px;
     word-wrap: break-word; /* Break long words if necessary */
     max-height: 38px;
 }
 
-/* Number formatting */
-#question_list .number {
-    font-weight: bold;
-    opacity: 1; /* Full opacity for question number */
-}
-
-/* ID formatting */
-#question_list .id {
-    opacity: 0.7; /* Reduced opacity for question IDs */
-}
-
-/* Checkbox alignment */
+/* Ensures the checkboxes and text are aligned correctly */
 #question_list input[type="checkbox"] {
     margin-right: 10px; /* Space between checkbox and text */
+}
+
+/* Styling for the question number */
+.number {
+    margin-right: 8px; /* Adjust the space between the number and ID */
+}
+
+.id {
+    opacity: 0.7; /* Maintain the desired opacity for the question ID */
 }
