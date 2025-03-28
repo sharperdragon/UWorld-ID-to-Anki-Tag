@@ -196,3 +196,13 @@ div#question_list {
     background-color: #eef6ff;
     border-color: #b7d7fa;
 }
+
+
+
+.exam-options input[type="checkbox"]:checked + label {
+    background-color: #a5cffc;
+    color: black;
+    border-radius: 6px;
+    padding: 9px 18px;
+    transition: all 0.2s ease;
+}
