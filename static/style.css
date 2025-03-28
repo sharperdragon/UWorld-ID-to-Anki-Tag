@@ -146,16 +146,18 @@ div#question_list {
 
 .exam-options {
     display: flex;
-    gap: 20px;
+    gap: 14vw;
     margin: 5px 0 10px 0;
+    justify-content: left;
+    padding-left: 200px;
 }
 
 .exam-options label {
     font-weight: normal;
     background-color: #f9f9f9;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 2px solid #ccc;
+    padding: 1px 10px;
+    border-radius: 16px;
+    border: 2px solid #343333;
     cursor: pointer;
     display: flex;
     align-items: center;
