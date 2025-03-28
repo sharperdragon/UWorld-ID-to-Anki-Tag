@@ -12,12 +12,11 @@
         <h1>UWorld to Anki Tag Converter</h1>
 
         <div id="exam_selector">
-            <label for="exam_type">Select UWorld Source (optional):</label>
-            <select id="exam_type">
-                <option value="">-- None --</option>
-                <option value="COMLEX">COMLEX</option>
-                <option value="STEP">STEP</option>
-            </select>
+            <label>Select UWorld Source (optional):</label>
+            <div class="exam-options">
+                <label><input type="checkbox" name="exam_type" value="COMLEX"> COMLEX</label>
+                <label><input type="checkbox" name="exam_type" value="STEP"> STEP</label>
+            </div>
         </div>
 
         <!-- Input Section -->
@@ -82,6 +81,17 @@
             });
         }
 
+        // Ensure only one exam type checkbox can be selected at a time
+        document.querySelectorAll("input[name='exam_type']").forEach(cb => {
+            cb.addEventListener("change", () => {
+                if (cb.checked) {
+                    document.querySelectorAll("input[name='exam_type']").forEach(other => {
+                        if (other !== cb) other.checked = false;
+                    });
+                }
+            });
+        });
+
         // Generate the output when "Generate" is clicked
         document.getElementById("generate_output").addEventListener("click", () => {
             const inputIDs = inputField.value.trim();
@@ -93,7 +103,8 @@
                 return;
             }
 
-            const examType = document.getElementById("exam_type").value;
+            const checkedExamTypes = Array.from(document.querySelectorAll("input[name='exam_type']:checked"));
+            const examType = checkedExamTypes.length === 1 ? checkedExamTypes[0].value : "";
             const output = selectedIDs.map(id => {
                 if (examType === "COMLEX") {
                     return `tag:*COMLEX::${id}*`;
