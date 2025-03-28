@@ -175,11 +175,10 @@ div#question_list {
 }
 
 .exam-options input[type="checkbox"]:checked + span {
-    background-color: #007bff;
-    color: white;
+    background-color: #a5cffc;
+    color: #0b5196;
     border-radius: 6px;
     padding: 6px 12px;
-    border: 1px solid #005bb5;
     transition: all 0.2s ease;
 }
 
