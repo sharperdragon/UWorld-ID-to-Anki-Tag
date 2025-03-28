@@ -175,7 +175,7 @@ div#question_list {
 }
 
 .exam-options input[type="checkbox"]:checked + span {
-    background-color: #a5cffc;
+    background-color: rgb(0, 123, 255, 0.25);
     color: black;
     border-radius: 6px;
     padding: 9px 18px;
@@ -195,14 +195,4 @@ div#question_list {
 .exam-options label:hover {
     background-color: #eef6ff;
     border-color: #b7d7fa;
-}
-
-
-
-.exam-options input[type="checkbox"]:checked + label {
-    background-color: #a5cffc;
-    color: black;
-    border-radius: 6px;
-    padding: 9px 18px;
-    transition: all 0.2s ease;
 }
