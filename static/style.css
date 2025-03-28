@@ -153,12 +153,36 @@ div#question_list {
 .exam-options label {
     font-weight: normal;
     background-color: #f9f9f9;
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 2px solid #ccc;
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.exam-options label:hover {
+    background-color: #eef6ff;
+    border-color: #66aaff;
+}
+
+.exam-options input[type="checkbox"] {
+    display: none;
+}
+
+.exam-options input[type="checkbox"]:checked + span {
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    border: 1px solid #005bb5;
+    transition: all 0.2s ease;
+}
+
+.exam-options span {
+    margin-left: 8px;
 }
 
 .exam-options input[type="checkbox"] {
