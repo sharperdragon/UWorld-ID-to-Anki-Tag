@@ -91,31 +91,32 @@
                 }
             });
         });
+// Generate the output when "Generate" is clicked
+document.getElementById("generate_output").addEventListener("click", () => {
+    const inputIDs = inputField.value.trim();
+    const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
+                               .map(input => input.value);
 
-        // Generate the output when "Generate" is clicked
-        document.getElementById("generate_output").addEventListener("click", () => {
-            const inputIDs = inputField.value.trim();
-            const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                                       .map(input => input.value);
+    if (!selectedIDs.length) {
+        alert("No IDs selected for output.");
+        return;
+    }
 
-            if (!selectedIDs.length) {
-                alert("No IDs selected for output.");
-                return;
-            }
+    const checkedExamTypes = Array.from(document.querySelectorAll("input[name='exam_type']:checked"));
+    const examType = checkedExamTypes.length === 1 ? checkedExamTypes[0].value : "";
+    const output = selectedIDs.map(id => {
+        if (examType === "COMLEX") {
+            return `tag:*COMLEX::${id}*`;
+        } else if (examType === "STEP") {
+            return `tag:*Step::${id}*`;
+        } else {
+            return `tag:*${id}*`;
+        }
+    }).join(" OR ");
 
-            const checkedExamTypes = Array.from(document.querySelectorAll("input[name='exam_type']:checked"));
-            const examType = checkedExamTypes.length === 1 ? checkedExamTypes[0].value : "";
-            const output = selectedIDs.map(id => {
-                if (examType === "COMLEX") {
-                    return `tag:*COMLEX::${id}*`;
-                } else if (examType === "STEP") {
-                    return `tag:*Step::${id}*`;
-                } else {
-                    return `tag:*${id}*`;
-                }
-            }).join(" OR ");
-            document.getElementById("output_text").value = output;
-        });
+    // Add two parentheses around the entire output
+    document.getElementById("output_text").value = `((${output}))`;
+});
     </script>
 </body>
 </html>
