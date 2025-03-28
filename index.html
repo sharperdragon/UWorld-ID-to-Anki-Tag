@@ -11,6 +11,15 @@
     <div class="container">
         <h1>UWorld to Anki Tag Converter</h1>
 
+        <div id="exam_selector">
+            <label for="exam_type">Select UWorld Source (optional):</label>
+            <select id="exam_type">
+                <option value="">-- None --</option>
+                <option value="COMLEX">COMLEX</option>
+                <option value="STEP">STEP</option>
+            </select>
+        </div>
+
         <!-- Input Section -->
         <label for="input_ids">Question IDs (comma-separated):</label>
         <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
@@ -84,8 +93,16 @@
                 return;
             }
 
-            // Create output as Anki tags
-            const output = selectedIDs.map(id => `tag:*${id}*`).join(" OR ");
+            const examType = document.getElementById("exam_type").value;
+            const output = selectedIDs.map(id => {
+                if (examType === "COMLEX") {
+                    return `tag:*COMLEX::${id}*`;
+                } else if (examType === "STEP") {
+                    return `tag:*STEP::${id}*`;
+                } else {
+                    return `tag:*${id}*`;
+                }
+            }).join(" OR ");
             document.getElementById("output_text").value = output;
         });
     </script>
