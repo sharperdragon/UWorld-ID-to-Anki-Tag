@@ -157,7 +157,7 @@ div#question_list {
     background-color: #f9f9f9;
     padding: 1px 10px;
     border-radius: 16px;
-    border: 2px solid #343333;
+    border: 1px solid #959090;
     cursor: pointer;
     display: flex;
     align-items: center;
