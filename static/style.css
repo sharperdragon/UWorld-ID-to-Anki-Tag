@@ -182,8 +182,10 @@ div#question_list {
     transition: all 0.2s ease;
 }
 
+
+
 .exam-options span {
-    margin-left: 1px;
+    background-color: transparent;
 }
 
 .exam-options input[type="checkbox"] {
