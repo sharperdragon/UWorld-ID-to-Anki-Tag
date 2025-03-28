@@ -146,7 +146,7 @@ div#question_list {
 
 .exam-options {
     display: flex;
-    gap: 14vw;
+    gap: 4vw;
     margin: 5px 0 10px 0;
     justify-content: left;
     padding-left: 200px;
