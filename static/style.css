@@ -82,11 +82,6 @@ div#selection_buttons {
     padding: 10;
 }
 
-button#generate_output {
-    margin: 0 auto;
-}
-
-/* Specific section styling */
 div#mode_section {
     padding: 10px;
     margin-right: 20px;

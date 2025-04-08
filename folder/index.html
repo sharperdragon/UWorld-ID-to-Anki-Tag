@@ -4,82 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UWorld to Anki Tag Converter</title>
-   <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
+    <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
+    <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
 </head>
 <body>
     <div class="container">
         <h1>UWorld to Anki Tag Converter</h1>
 
+        <div id="exam_selector">
+            <label for="exam_type">Select UWorld Source (optional):</label>
+            <select id="exam_type">
+                <option value="">-- None --</option>
+                <option value="COMLEX">COMLEX</option>
+                <option value="STEP">STEP</option>
+            </select>
+        </div>
+
         <!-- Input Section -->
-        <label for="input_ids">Input Question IDs <span style="opacity:0.8">(comma-separated):</span></label>
+        <label for="input_ids">Question IDs (comma-separated):</label>
         <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
 
-        <!-- Generate Button -->
-        <button id="generate_list">Generate List</button>
-
-        <!-- Mode Selection -->
-        <div id="mode_section">
-            <label><input type="radio" name="mode" value="All" checked> All</label>
-            <label><input type="radio" name="mode" value="Select Questions"> Selected Questions</label>
-            <label><input type="radio" name="mode" value="Exclude Questions"> Exclude Questions</label>
+        <!-- Buttons for Select All/Deselect All -->
+        <div id="selection_buttons">
+            <button id="select_all">Select All</button>
+            <button id="deselect_all">Deselect All</button>
         </div>
 
         <!-- Generated Questions -->
         <div id="question_list"></div>
 
         <!-- Output Section -->
-        <button id="generate_output">Generate Output</button>
-        <label for="output_text">Output <span style="opacity:0.8">(paste into Anki browser)</span></label>
+        <button id="copy_output">Copy Output</button>
+        <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
         <textarea id="output_text" rows="5" readonly></textarea>
     </div>
 
-    <script>
-        // Event listener for generating the list of questions
-        document.getElementById("generate_list").addEventListener("click", () => {
-            const inputIDs = document.getElementById("input_ids").value.trim();
-            const questionList = document.getElementById("question_list");
-            questionList.innerHTML = ""; // Clear any previous list
-
-            if (!inputIDs) {
-                alert("Please enter question IDs.");
-                return;
-            }
-
-            const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-            ids.forEach((id, index) => {
-                const label = document.createElement("label");
-                label.innerHTML = `<input type="checkbox" value="${id}"> ${index + 1}. ${id}`;
-                questionList.appendChild(label);
-                questionList.appendChild(document.createElement("br"));
-            });
-        });
-
-        // Event listener for generating the output based on the selected questions
-        document.getElementById("generate_output").addEventListener("click", () => {
-            const inputIDs = document.getElementById("input_ids").value.trim();
-            const mode = document.querySelector("input[name='mode']:checked").value;
-            const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                                       .map(input => input.value);
-
-            let outputIDs = [];
-            if (mode === "All") {
-                outputIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-            } else if (mode === "Select Questions") {
-                outputIDs = selectedIDs;
-            } else if (mode === "Exclude Questions") {
-                const allIDs = inputIDs.split(",").map(id => id.trim()).filter(id => id);
-                outputIDs = allIDs.filter(id => !selectedIDs.includes(id));
-            }
-
-            if (!outputIDs.length) {
-                alert("No IDs selected for output.");
-                return;
-            }
-
-            // Create output as Anki tags
-            const output = outputIDs.map(id => `tag:*${id}*`).join(" OR ");
-            document.getElementById("output_text").value = output;
-        });
-    </script>
+    <script src="/UWorld-ID-to-Anki-Tag/static/script.js"></script>
 </body>
 </html>
