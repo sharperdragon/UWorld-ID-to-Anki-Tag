@@ -205,7 +205,7 @@ div#output_controls {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
 }
 
