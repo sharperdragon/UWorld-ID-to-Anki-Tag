@@ -93,13 +93,17 @@ function updateOutput() {
 }
 
 function saveToHistory(output) {
+    const now = new Date();
+    const shortTimestamp = `${now.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    const timestampedOutput = `${shortTimestamp} → ${output}`;
+    
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
-    history.unshift(output); // Add to front
+    history.unshift(timestampedOutput); // Add to front
     history = history.slice(0, 10); // Keep only latest 10
     localStorage.setItem("conversionHistory", JSON.stringify(history));
 
     let session = JSON.parse(sessionStorage.getItem("sessionConversionHistory")) || [];
-    session.unshift(output);
+    session.unshift(timestampedOutput);
     session = session.slice(0, 10);
     sessionStorage.setItem("sessionConversionHistory", JSON.stringify(session));
 

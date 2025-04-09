@@ -63,9 +63,9 @@ select#history_select:focus {
 
 label[for="history_select"] {
     font-weight: 500;
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 6px;
     display: block;
     margin-top: 10px;
 }
@@ -162,7 +162,6 @@ div#question_list {
     opacity: 0.7; /* Maintain the desired opacity for the question ID */
 }
 
-
 .exam-options {
     margin-bottom: 20px;
     display: flex;
@@ -199,6 +198,34 @@ div#output_controls {
     align-items: center;
     max-width: fit-content;
     margin: auto;
+}
+
+.output-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.output-area {
+    flex: 1 1 70%;
+}
+
+.history-area {
+    flex: 0 0 auto;
+    width: 200px;
+}
+
+.history-area select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
 @media screen and (max-width: 600px) {
