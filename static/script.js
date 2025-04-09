@@ -24,8 +24,22 @@ deselectAllButton.addEventListener("click", () => {
 // Event listener for exam type buttons
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
-        document.getElementById('exam_type').value = button.getAttribute('data-source');
-        localStorage.setItem("examType", button.getAttribute('data-source'));
+        const examInput = document.getElementById('exam_type');
+        const currentType = examInput.value;
+        const newType = button.getAttribute('data-source');
+
+        if (currentType === newType) {
+            examInput.value = "";
+            localStorage.removeItem("examType");
+            button.classList.remove("active");
+        } else {
+            examInput.value = newType;
+            localStorage.setItem("examType", newType);
+            document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        updateOutput();
     });
 });
 
@@ -47,11 +61,13 @@ function updateQuestionList() {
     
     ids.forEach((id, index) => {
         const label = document.createElement("label");
-        label.innerHTML = `
-            <input type="checkbox" value="${id}">
-            <span class="number">${index + 1})</span>
-            <span class="space"> </span> 
-            <span class="id">${id}</span>`;
+        label.textContent = `${index + 1}) ${id}`;
+        label.classList.add("question-label");
+        label.dataset.id = id;
+        label.addEventListener("click", () => {
+            label.classList.toggle("selected");
+            updateOutput();
+        });
         questionList.appendChild(label);
         questionList.appendChild(document.createElement("br"));
     });
@@ -67,8 +83,8 @@ function toggleSelection(selectAll) {
 }
 
 function updateOutput() {
-    const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                            .map(input => input.value);
+    const selectedIDs = Array.from(document.querySelectorAll("#question_list .question-label.selected"))
+                            .map(label => label.dataset.id);
 
     const examType = document.getElementById("exam_type").value;
     let output = "";
@@ -137,18 +153,6 @@ document.getElementById("copy_output").addEventListener("click", () => {
         setTimeout(() => {
             button.textContent = originalText;
         }, 2000);
-    });
-});
-
-document.querySelectorAll('.source-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        document.getElementById('exam_type').value = button.getAttribute('data-source');
-        localStorage.setItem("examType", button.getAttribute('data-source'));
-
-        document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        updateOutput();
     });
 });
 

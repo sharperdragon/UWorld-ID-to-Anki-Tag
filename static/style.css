@@ -153,6 +153,21 @@ div#question_list {
     padding: 8px 2px;
 }
 
+.question-label.selected {
+    background-color: #cde5ff;
+    border-color: #3399ff;
+}
+
+.question-label:hover {
+    background-color: #e9f4ff;
+}
+
+.question-label {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
 /* Styling for the question number */
 .number {
     margin-right: 8px; /* Adjust the space between the number and ID */
@@ -169,6 +184,14 @@ div#question_list {
     align-content: space-around;
     justify-content: center;
     align-items: center;
+}
+
+.source-btn {
+    opacity: 0.6;
+}
+
+.source-btn.active {
+    opacity: 1;
 }
 
 .exam-options label {
