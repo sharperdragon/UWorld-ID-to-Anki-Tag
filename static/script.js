@@ -3,7 +3,7 @@ const questionList = document.getElementById("question_list");
 const selectAllButton = document.getElementById("select_all");
 const deselectAllButton = document.getElementById("deselect_all");
 
-let lastClickedLabel = null; // Move lastClickedLabel to global scope
+// Assumes extractIDsFromInput is already loaded from utils.js via script tag
 
 // Update the question list dynamically when input changes
 inputField.addEventListener("input", () => {
@@ -45,9 +45,6 @@ document.querySelectorAll('.source-btn').forEach(button => {
     });
 });
 
-let isDragging = false;
-let dragAdd = true;
-
 function updateQuestionList() {
     questionList.innerHTML = ""; // Clear previous list
     const inputIDs = inputField.value.trim();
@@ -56,32 +53,15 @@ function updateQuestionList() {
         return; // Do nothing if input is empty
     }
 
-    const ids = [];
-    const regex = /"([^"]+)"|([^,\n\r]+)/g;
-    let match;
-    while ((match = regex.exec(inputIDs)) !== null) {
-        const item = match[1] ? `"${match[1].trim()}"` : match[2]?.trim();
-        if (item && item !== "") ids.push(item);
-    }
+    const ids = extractIDsFromInput(inputIDs);
     
     ids.forEach((id, index) => {
         const label = document.createElement("label");
         label.textContent = `${index + 1}) ${id}`;
         label.classList.add("question-label");
         label.dataset.id = id;
-        label.addEventListener("click", (e) => {
-            if (e.shiftKey && lastClickedLabel) {
-                const allLabels = Array.from(document.querySelectorAll(".question-label"));
-                const start = allLabels.indexOf(lastClickedLabel);
-                const end = allLabels.indexOf(label);
-                const [min, max] = [start, end].sort((a, b) => a - b);
-                for (let i = min; i <= max; i++) {
-                    allLabels[i].classList.add("selected");
-                }
-            } else {
-                label.classList.toggle("selected");
-                lastClickedLabel = label;
-            }
+        label.addEventListener("click", () => {
+            label.classList.toggle("selected");
             updateOutput();
         });
         questionList.appendChild(label);
@@ -89,28 +69,6 @@ function updateQuestionList() {
     });
     updateOutput();
 }
-
-// Drag to select logic
-questionList.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("question-label")) {
-        isDragging = true;
-        dragAdd = !e.target.classList.contains("selected");
-    }
-});
-
-questionList.addEventListener("mouseover", (e) => {
-    if (isDragging && e.target.classList.contains("question-label")) {
-        e.target.classList[dragAdd ? "add" : "remove"]("selected");
-        updateOutput();
-    }
-});
-
-document.addEventListener("mouseup", () => {
-    if (isDragging) {
-        isDragging = false;
-        updateOutput();
-    }
-});
 
 function toggleSelection(selectAll) {
     const labels = questionList.querySelectorAll(".question-label");
@@ -183,7 +141,6 @@ function updateHistoryDropdown() {
     });
 }
 
-questionList.addEventListener("change", updateOutput);
 document.getElementById("copy_output").addEventListener("click", () => {
     const output = document.getElementById("output_text").value;
     navigator.clipboard.writeText(output).then(() => {
