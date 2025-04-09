@@ -154,18 +154,22 @@ div#question_list {
 }
 
 .question-label.selected {
-    background-color: #cde5ff;
-    border-color: #3399ff;
+    background-color: #b3d4fc;
+    border-color: #007bff;
+    opacity: 1;
+    font-weight: 500;
+    border-width: 2px;
 }
 
 .question-label:hover {
-    background-color: #e9f4ff;
+    background-color: #ddeeff;
 }
 
 .question-label {
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.5;
 }
 
 /* Styling for the question number */
