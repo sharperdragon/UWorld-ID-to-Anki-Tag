@@ -136,7 +136,7 @@ div#question_list {
 }
 
 /* Styling for each individual label (checkbox item) */
-.question-label {
+#question_list label {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -151,18 +151,6 @@ div#question_list {
     word-wrap: break-word; /* Break long words if necessary */
     max-height: 38px;
     padding: 8px 2px;
-}
-
-.question-label:hover {
-    background-color: #e9f4ff;
-}
-
-.question-label.selected {
-    background-color: #f1f9ff;
-    border: 1px solid #007bff;
-    border-width: 1.5px;
-    opacity: 1;
-    font-weight: 600;
 }
 
 /* Styling for the question number */
@@ -181,14 +169,6 @@ div#question_list {
     align-content: space-around;
     justify-content: center;
     align-items: center;
-}
-
-.source-btn {
-    opacity: 0.6;
-}
-
-.source-btn.active {
-    opacity: 1;
 }
 
 .exam-options label {
@@ -250,7 +230,7 @@ div#output_controls {
 }
 
 @media screen and (max-width: 600px) {
-    .question-label {
+    #question_list label {
         width: 100%;
         min-width: unset;
     }

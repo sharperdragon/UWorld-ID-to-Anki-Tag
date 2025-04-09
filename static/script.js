@@ -3,8 +3,6 @@ const questionList = document.getElementById("question_list");
 const selectAllButton = document.getElementById("select_all");
 const deselectAllButton = document.getElementById("deselect_all");
 
-// Assumes extractIDsFromInput is already loaded from utils.js via script tag
-
 // Update the question list dynamically when input changes
 inputField.addEventListener("input", () => {
     updateQuestionList();
@@ -26,22 +24,8 @@ deselectAllButton.addEventListener("click", () => {
 // Event listener for exam type buttons
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
-        const examInput = document.getElementById('exam_type');
-        const currentType = examInput.value;
-        const newType = button.getAttribute('data-source');
-
-        if (currentType === newType) {
-            examInput.value = "";
-            localStorage.removeItem("examType");
-            button.classList.remove("active");
-        } else {
-            examInput.value = newType;
-            localStorage.setItem("examType", newType);
-            document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        }
-
-        updateOutput();
+        document.getElementById('exam_type').value = button.getAttribute('data-source');
+        localStorage.setItem("examType", button.getAttribute('data-source'));
     });
 });
 
@@ -53,17 +37,21 @@ function updateQuestionList() {
         return; // Do nothing if input is empty
     }
 
-    const ids = extractIDsFromInput(inputIDs);
+    const ids = [];
+    const regex = /"([^"]+)"|([^,\n\r]+)/g;
+    let match;
+    while ((match = regex.exec(inputIDs)) !== null) {
+        const item = match[1] ? `"${match[1].trim()}"` : match[2]?.trim();
+        if (item && item !== "") ids.push(item);
+    }
     
     ids.forEach((id, index) => {
         const label = document.createElement("label");
-        label.textContent = `${index + 1}) ${id}`;
-        label.classList.add("question-label");
-        label.dataset.id = id;
-        label.addEventListener("click", () => {
-            label.classList.toggle("selected");
-            updateOutput();
-        });
+        label.innerHTML = `
+            <input type="checkbox" value="${id}">
+            <span class="number">${index + 1})</span>
+            <span class="space"> </span> 
+            <span class="id">${id}</span>`;
         questionList.appendChild(label);
         questionList.appendChild(document.createElement("br"));
     });
@@ -71,20 +59,16 @@ function updateQuestionList() {
 }
 
 function toggleSelection(selectAll) {
-    const labels = questionList.querySelectorAll(".question-label");
-    labels.forEach(label => {
-        if (selectAll) {
-            label.classList.add("selected");
-        } else {
-            label.classList.remove("selected");
-        }
+    const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAll;
+        checkbox.dispatchEvent(new Event("change"));
     });
-    updateOutput();
 }
 
 function updateOutput() {
-    const selectedIDs = Array.from(document.querySelectorAll("#question_list .question-label.selected"))
-                            .map(label => label.dataset.id);
+    const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
+                            .map(input => input.value);
 
     const examType = document.getElementById("exam_type").value;
     let output = "";
@@ -141,6 +125,7 @@ function updateHistoryDropdown() {
     });
 }
 
+questionList.addEventListener("change", updateOutput);
 document.getElementById("copy_output").addEventListener("click", () => {
     const output = document.getElementById("output_text").value;
     navigator.clipboard.writeText(output).then(() => {
@@ -152,6 +137,18 @@ document.getElementById("copy_output").addEventListener("click", () => {
         setTimeout(() => {
             button.textContent = originalText;
         }, 2000);
+    });
+});
+
+document.querySelectorAll('.source-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.getElementById('exam_type').value = button.getAttribute('data-source');
+        localStorage.setItem("examType", button.getAttribute('data-source'));
+
+        document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        updateOutput();
     });
 });
 
