@@ -71,24 +71,27 @@ function updateOutput() {
                             .map(input => input.value);
 
     const examType = document.getElementById("exam_type").value;
-    const output = "(" + selectedIDs.map(id => {
-        if (examType === "COMLEX") {
-            return `tag:*COMLEX::${id}*`;
-        } else if (examType === "STEP") {
-            return `tag:*STEP::${id}*`;
-        } else {
-            return `tag:*${id}*`;
-        }
-    }).join(" OR ") + ")";
+    let output = "";
+    if (selectedIDs.length > 0) {
+        output = "(" + selectedIDs.map(id => {
+            if (examType === "COMLEX") {
+                return `tag:*COMLEX::${id}*`;
+            } else if (examType === "STEP") {
+                return `tag:*STEP::${id}*`;
+            } else {
+                return `tag:*${id}*`;
+            }
+        }).join(" OR ") + ")";
+    }
     const outputField = document.getElementById("output_text");
     outputField.value = output;
 
     if (examType === "COMLEX") {
-        outputField.placeholder = "(tag:*COMLEX::23456* OR tag:*COMLEX::23457*)";
+        outputField.placeholder = "tag:*COMLEX::23456*";
     } else if (examType === "STEP") {
-        outputField.placeholder = "(tag:*STEP::23456* OR tag:*STEP::23457*)";
+        outputField.placeholder = "tag:*STEP::23456*";
     } else {
-        outputField.placeholder = "(tag:*23456* OR tag:*23457*)";
+        outputField.placeholder = "tag:*23456*";
     }
 }
 
