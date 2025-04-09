@@ -68,8 +68,8 @@ function toggleSelection(selectAll) {
 }
 
 function updateOutput() {
-    const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                            .map(input => input.value);
+    const selectedIDs = Array.from(document.querySelectorAll("#question_list .question-label.selected"))
+                            .map(label => label.dataset.id);
 
     const examType = document.getElementById("exam_type").value;
     let output = "";
