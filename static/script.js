@@ -98,9 +98,14 @@ questionList.addEventListener("change", updateOutput);
 document.getElementById("copy_output").addEventListener("click", () => {
     const output = document.getElementById("output_text").value;
     navigator.clipboard.writeText(output).then(() => {
-        alert("Output copied to clipboard!");
+        const button = document.getElementById("copy_output");
+        const originalText = button.textContent;
+        button.textContent = "Copied!";
         saveToHistory(output);
         history.pushState({ output }, "", "");
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 2000);
     });
 });
 
