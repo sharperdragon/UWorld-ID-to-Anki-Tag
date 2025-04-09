@@ -80,7 +80,16 @@ function updateOutput() {
             return `tag:*${id}*`;
         }
     }).join(" OR ") + ")";
-    document.getElementById("output_text").value = output;
+    const outputField = document.getElementById("output_text");
+    outputField.value = output;
+
+    if (examType === "COMLEX") {
+        outputField.placeholder = "(tag:*COMLEX::23456* OR tag:*COMLEX::23457*)";
+    } else if (examType === "STEP") {
+        outputField.placeholder = "(tag:*STEP::23456* OR tag:*STEP::23457*)";
+    } else {
+        outputField.placeholder = "(tag:*23456* OR tag:*23457*)";
+    }
 }
 
 function saveToHistory(output) {
@@ -157,3 +166,4 @@ document.getElementById("history_select").addEventListener("change", (e) => {
 });
 
 updateHistoryDropdown();
+updateOutput();

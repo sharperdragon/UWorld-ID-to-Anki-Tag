@@ -42,6 +42,34 @@ textarea {
     max-width: -webkit-fill-available;
 }
 
+select#history_select {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    font-size: 1rem;
+    color: #333;
+    margin-top: 8px;
+    max-width: -webkit-fill-available;
+    transition: border-color 0.3s ease;
+}
+
+select#history_select:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: #ffffff;
+}
+
+label[for="history_select"] {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 4px;
+    display: block;
+    margin-top: 10px;
+}
+
 /* Fix all divs to maintain consistent height */
 div {
     position: relative; /* Prevents hover effects from changing layout */
