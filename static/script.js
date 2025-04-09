@@ -56,6 +56,7 @@ function toggleSelection(selectAll) {
         checkbox.checked = selectAll;
         checkbox.dispatchEvent(new Event("change"));
     });
+    updateOutput();
 }
 
 function updateOutput() {
@@ -74,6 +75,8 @@ function updateOutput() {
     }).join(" OR ");
     document.getElementById("output_text").value = output;
 }
+
+document.getElementById("exam_type").addEventListener("change", updateOutput);
 
 function saveToHistory(output) {
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
