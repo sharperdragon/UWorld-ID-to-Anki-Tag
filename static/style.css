@@ -162,8 +162,8 @@ div#question_list {
 }
 
 .question-label.selected {
-    background-color: #b3d4fc;
-    border-color: #007bff;
+    background-color: #f1f9ff;
+    border: 1px solid #007bff;
     border-width: 1.5px;
     opacity: 1;
     font-weight: 600;
