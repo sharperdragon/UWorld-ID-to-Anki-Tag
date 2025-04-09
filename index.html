@@ -12,12 +12,10 @@
         <h1>UWorld to Anki Tag Converter</h1>
 
         <div class="exam-options">
-            <label for="exam_type">Select UWorld Source (optional):</label>
-            <select id="exam_type">
-                <option value="">-- None --</option>
-                <option value="COMLEX">COMLEX</option>
-                <option value="STEP">STEP</option>
-            </select>
+            <label>Select UWorld Source (optional):</label>
+            <button type="button" class="source-btn" data-source="COMLEX">COMLEX</button>
+            <button type="button" class="source-btn" data-source="STEP">STEP</button>
+            <input type="hidden" id="exam_type" value="">
         </div>
 
         <!-- Input Section -->
@@ -28,6 +26,7 @@
         <div id="selection_buttons">
             <button id="select_all">Select All</button>
             <button id="deselect_all">Deselect All</button>
+            <button id="copy_output" style="margin-left: 10px;">Copy Search</button>
         </div>
 
         <!-- Generated Questions -->

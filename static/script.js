@@ -21,6 +21,13 @@ deselectAllButton.addEventListener("click", () => {
     updateOutput();
 });
 
+// Event listener for exam type buttons
+document.querySelectorAll('.source-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.getElementById('exam_type').value = button.getAttribute('data-source');
+    });
+});
+
 function updateQuestionList() {
     questionList.innerHTML = ""; // Clear previous list
     const inputIDs = inputField.value.trim();
