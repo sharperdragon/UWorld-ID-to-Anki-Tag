@@ -25,6 +25,7 @@ deselectAllButton.addEventListener("click", () => {
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
         document.getElementById('exam_type').value = button.getAttribute('data-source');
+        localStorage.setItem("examType", button.getAttribute('data-source'));
     });
 });
 
@@ -37,11 +38,11 @@ function updateQuestionList() {
     }
 
     const ids = [];
-    const regex = /"([^"]+)"|([^,]+)/g;
+    const regex = /"([^"]+)"|([^,\n\r]+)/g;
     let match;
     while ((match = regex.exec(inputIDs)) !== null) {
-        const item = match[1] ? `"${match[1].trim()}"` : match[2].trim();
-        if (item) ids.push(item);
+        const item = match[1] ? `"${match[1].trim()}"` : match[2]?.trim();
+        if (item && item !== "") ids.push(item);
     }
     
     ids.forEach((id, index) => {
@@ -92,6 +93,20 @@ function saveToHistory(output) {
     session.unshift(output);
     session = session.slice(0, 10);
     sessionStorage.setItem("sessionConversionHistory", JSON.stringify(session));
+
+    updateHistoryDropdown();
+}
+
+function updateHistoryDropdown() {
+    const history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    const select = document.getElementById("history_select");
+    select.innerHTML = '<option value="">-- Select a past output --</option>';
+    history.forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item;
+        opt.textContent = item;
+        select.appendChild(opt);
+    });
 }
 
 questionList.addEventListener("change", updateOutput);
@@ -112,6 +127,7 @@ document.getElementById("copy_output").addEventListener("click", () => {
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
         document.getElementById('exam_type').value = button.getAttribute('data-source');
+        localStorage.setItem("examType", button.getAttribute('data-source'));
 
         document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
@@ -125,3 +141,19 @@ window.onpopstate = (event) => {
         document.getElementById("output_text").value = event.state.output;
     }
 };
+
+const savedExamType = localStorage.getItem("examType");
+if (savedExamType) {
+    document.getElementById('exam_type').value = savedExamType;
+    const btn = document.querySelector(`.source-btn[data-source="${savedExamType}"]`);
+    if (btn) btn.classList.add("active");
+}
+
+document.getElementById("history_select").addEventListener("change", (e) => {
+    const value = e.target.value;
+    if (value) {
+        document.getElementById("output_text").value = value;
+    }
+});
+
+updateHistoryDropdown();

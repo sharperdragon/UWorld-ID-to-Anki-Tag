@@ -172,3 +172,10 @@ div#output_controls {
     max-width: fit-content;
     margin: auto;
 }
+
+@media screen and (max-width: 600px) {
+    #question_list label {
+        width: 100%;
+        min-width: unset;
+    }
+}
