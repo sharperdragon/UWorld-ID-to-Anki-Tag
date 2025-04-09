@@ -4,7 +4,10 @@ const selectAllButton = document.getElementById("select_all");
 const deselectAllButton = document.getElementById("deselect_all");
 
 // Update the question list dynamically when input changes
-inputField.addEventListener("input", updateQuestionList);
+inputField.addEventListener("input", () => {
+    updateQuestionList();
+    updateOutput();
+});
 
 // Event listener for Select All button
 selectAllButton.addEventListener("click", () => {
@@ -72,4 +75,30 @@ function updateOutput() {
     document.getElementById("output_text").value = output;
 }
 
+function saveToHistory(output) {
+    let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
+    history.unshift(output); // Add to front
+    history = history.slice(0, 10); // Keep only latest 10
+    localStorage.setItem("conversionHistory", JSON.stringify(history));
+
+    let session = JSON.parse(sessionStorage.getItem("sessionConversionHistory")) || [];
+    session.unshift(output);
+    session = session.slice(0, 10);
+    sessionStorage.setItem("sessionConversionHistory", JSON.stringify(session));
+}
+
 questionList.addEventListener("change", updateOutput);
+document.getElementById("copy_output").addEventListener("click", () => {
+    const output = document.getElementById("output_text").value;
+    navigator.clipboard.writeText(output).then(() => {
+        alert("Output copied to clipboard!");
+        saveToHistory(output);
+        history.pushState({ output }, "", "");
+    });
+});
+
+window.onpopstate = (event) => {
+    if (event.state && event.state.output) {
+        document.getElementById("output_text").value = event.state.output;
+    }
+};
