@@ -49,19 +49,17 @@ let isDragging = false;
 let dragAdd = true;
 
 questionList.addEventListener("mousedown", (e) => {
-    e.preventDefault(); // Prevent default text selection behavior
     if (e.target.classList.contains("question-label")) {
         isDragging = true;
         dragAdd = !e.target.classList.contains("selected");
-        e.target.classList.toggle("selected", dragAdd);
+        e.target.classList[dragAdd ? "add" : "remove"]("selected");
         updateOutput();
     }
 });
 
 questionList.addEventListener("mouseover", (e) => {
-    e.preventDefault(); // Prevent default text selection behavior
     if (isDragging && e.target.classList.contains("question-label")) {
-        e.target.classList.toggle("selected", dragAdd);
+        e.target.classList[dragAdd ? "add" : "remove"]("selected");
         updateOutput();
     }
 });
