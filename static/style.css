@@ -150,24 +150,23 @@ div#question_list {
     max-height: 38px;
     padding: 8px 2px;
 }
-.question_list label :not(.selected) {
-    font-weight:500px;
+.question-label {
+    font-weight: normal;
     background-color: #f9f9f9;
-    border-color: #c8c7c7;
-    border-width: 1px;
+    border: 1px solid #c8c7c7;
+    border-radius: 5px;
+    opacity: 0.5;
     cursor: pointer;
     user-select: none;
     transition: background-color 0.2s ease, opacity 0.2s ease;
-    opacity: 0.5;
 }
 
 .question-label.selected {
     background-color: #f1f9ff;
     border: 1px solid #007bff;
-    border-width: 1.5px;
+    border-width: 2px;
     opacity: 1;
     font-weight: 600;
-    border-width: 2px;
 }
 
 .question-label:hover {
