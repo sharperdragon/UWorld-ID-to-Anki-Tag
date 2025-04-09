@@ -150,16 +150,6 @@ div#question_list {
     max-height: 38px;
     padding: 8px 2px;
 }
-.question_list label :not(.selected) {
-    font-weight:500px;
-    background-color: #f9f9f9;
-    border-color: #c8c7c7;
-    border-width: 1px;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s ease, opacity 0.2s ease;
-    opacity: 0.5;
-}
 
 .question-label.selected {
     background-color: #f1f9ff;
@@ -175,7 +165,7 @@ div#question_list {
 
 .question-label {
     cursor: pointer;
-    user-select: none;
+    user-select: text;
     transition: background-color 0.2s ease, opacity 0.2s ease;
     opacity: 0.5;
 }
