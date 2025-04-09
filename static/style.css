@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-right: 1rem; /* Fallback for older browsers */
     margin: 10px 0;
     padding-left: 10px;
 }
@@ -12,8 +13,8 @@
 }
 
 .exam-options select {
-    padding: 6px 12px;
+    border: 1px solid var(--border-color, #ccc);
     border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: var(--font-size-base, 1rem);
 }
