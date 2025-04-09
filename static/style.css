@@ -235,3 +235,29 @@ div#output_controls {
         min-width: unset;
     }
 }
+/* New styles for question-label elements */
+.question-label {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 12px;
+    opacity: 0.5;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.question-label.selected {
+    opacity: 1;
+    border: 2px solid #007bff;
+    background-color: #f1f9ff;
+}
+
+.question-label:hover {
+    background-color: #e9f4ff;
+}
+
+/* Hide any checkbox inputs within question-label if present */
+.question-label input[type="checkbox"] {
+    display: none;
+}

@@ -47,13 +47,14 @@ function updateQuestionList() {
     
     ids.forEach((id, index) => {
         const label = document.createElement("label");
-        label.innerHTML = `
-            <input type="checkbox" value="${id}">
-            <span class="number">${index + 1})</span>
-            <span class="space"> </span> 
-            <span class="id">${id}</span>`;
+        label.classList.add("question-label");
+        label.textContent = `${index + 1}) ${id}`;
+        label.dataset.id = id;
+        label.addEventListener("click", () => {
+            label.classList.toggle("selected");
+            updateOutput();
+        });
         questionList.appendChild(label);
-        questionList.appendChild(document.createElement("br"));
     });
     updateOutput();
 }
