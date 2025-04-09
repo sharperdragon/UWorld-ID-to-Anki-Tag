@@ -134,11 +134,14 @@ div#question_list {
     opacity: 0.7; /* Maintain the desired opacity for the question ID */
 }
 
+
 .exam-options {
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
     gap: 10px;
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 .exam-options label {
@@ -161,4 +164,11 @@ div#question_list {
 
 .exam-options input[type="hidden"] {
     display: none;
+}
+
+div#output_controls {
+    justify-content: center;
+    align-items: center;
+    max-width: fit-content;
+    margin: auto;
 }

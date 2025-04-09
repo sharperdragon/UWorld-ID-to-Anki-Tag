@@ -67,10 +67,10 @@ function toggleSelection(selectAll) {
 
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                             .map(input => input.value);
+                            .map(input => input.value);
 
     const examType = document.getElementById("exam_type").value;
-    const output = selectedIDs.map(id => {
+    const output = "(" + selectedIDs.map(id => {
         if (examType === "COMLEX") {
             return `tag:*COMLEX::${id}*`;
         } else if (examType === "STEP") {
@@ -78,7 +78,7 @@ function updateOutput() {
         } else {
             return `tag:*${id}*`;
         }
-    }).join(" OR ");
+    }).join(" OR ") + ")";
     document.getElementById("output_text").value = output;
 }
 
