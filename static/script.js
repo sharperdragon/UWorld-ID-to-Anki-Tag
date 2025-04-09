@@ -43,6 +43,29 @@ document.querySelectorAll('.source-btn').forEach(button => {
     });
 });
 
+let isDragging = false;
+let dragAdd = true;
+
+questionList.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("question-label")) {
+        isDragging = true;
+        dragAdd = !e.target.classList.contains("selected");
+        e.target.classList.toggle("selected", dragAdd);
+        updateOutput();
+    }
+});
+
+questionList.addEventListener("mouseover", (e) => {
+    if (isDragging && e.target.classList.contains("question-label")) {
+        e.target.classList.toggle("selected", dragAdd);
+        updateOutput();
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+});
+
 function updateQuestionList() {
     questionList.innerHTML = ""; // Clear previous list
     const inputIDs = inputField.value.trim();
@@ -59,13 +82,26 @@ function updateQuestionList() {
         if (item && item !== "") ids.push(item);
     }
     
+    let lastClickedLabel = null;
+
     ids.forEach((id, index) => {
         const label = document.createElement("label");
         label.textContent = `${index + 1}) ${id}`;
         label.classList.add("question-label");
         label.dataset.id = id;
-        label.addEventListener("click", () => {
-            label.classList.toggle("selected");
+        label.addEventListener("click", (e) => {
+            if (e.shiftKey && lastClickedLabel) {
+                const allLabels = Array.from(document.querySelectorAll(".question-label"));
+                const start = allLabels.indexOf(lastClickedLabel);
+                const end = allLabels.indexOf(label);
+                const [min, max] = [start, end].sort((a, b) => a - b);
+                for (let i = min; i <= max; i++) {
+                    allLabels[i].classList.add("selected");
+                }
+            } else {
+                label.classList.toggle("selected");
+                lastClickedLabel = label;
+            }
             updateOutput();
         });
         questionList.appendChild(label);
