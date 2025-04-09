@@ -153,10 +153,6 @@ div#question_list {
     padding: 8px 2px;
 }
 
-.question-label.selected {
-    background-color: #cde5ff;
-    border-color: #3399ff;
-}
 
 .question-label:hover {
     background-color: #e9f4ff;
