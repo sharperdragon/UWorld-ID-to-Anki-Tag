@@ -60,10 +60,13 @@ function updateQuestionList() {
 }
 
 function toggleSelection(selectAll) {
-    const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAll;
-        checkbox.dispatchEvent(new Event("change"));
+    const labels = questionList.querySelectorAll(".question-label");
+    labels.forEach(label => {
+        if (selectAll) {
+            label.classList.add("selected");
+        } else {
+            label.classList.remove("selected");
+        }
     });
 }
 
