@@ -3,6 +3,8 @@ const questionList = document.getElementById("question_list");
 const selectAllButton = document.getElementById("select_all");
 const deselectAllButton = document.getElementById("deselect_all");
 
+let lastClickedLabel = null; // Move lastClickedLabel to global scope
+
 // Update the question list dynamically when input changes
 inputField.addEventListener("input", () => {
     updateQuestionList();
@@ -47,6 +49,7 @@ let isDragging = false;
 let dragAdd = true;
 
 questionList.addEventListener("mousedown", (e) => {
+    e.preventDefault(); // Prevent default text selection behavior
     if (e.target.classList.contains("question-label")) {
         isDragging = true;
         dragAdd = !e.target.classList.contains("selected");
@@ -56,6 +59,7 @@ questionList.addEventListener("mousedown", (e) => {
 });
 
 questionList.addEventListener("mouseover", (e) => {
+    e.preventDefault(); // Prevent default text selection behavior
     if (isDragging && e.target.classList.contains("question-label")) {
         e.target.classList.toggle("selected", dragAdd);
         updateOutput();
@@ -82,8 +86,6 @@ function updateQuestionList() {
         if (item && item !== "") ids.push(item);
     }
     
-    let lastClickedLabel = null;
-
     ids.forEach((id, index) => {
         const label = document.createElement("label");
         label.textContent = `${index + 1}) ${id}`;
