@@ -210,12 +210,13 @@ div#output_controls {
 }
 
 .output-area {
-    flex: 1 1 70%;
+    flex: 0 0 60%;
+    max-width: 60%;
 }
 
 .history-area {
-    flex: 0 0 auto;
-    width: 200px;
+    flex: 0 0 40%;
+    max-width: 40%;
 }
 
 .history-area select {
