@@ -104,6 +104,17 @@ document.getElementById("copy_output").addEventListener("click", () => {
     });
 });
 
+document.querySelectorAll('.source-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.getElementById('exam_type').value = button.getAttribute('data-source');
+
+        document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        updateOutput();
+    });
+});
+
 window.onpopstate = (event) => {
     if (event.state && event.state.output) {
         document.getElementById("output_text").value = event.state.output;

@@ -153,6 +153,12 @@ div#question_list {
     border-radius: 6px;
 }
 
+.source-btn.active {
+    background-color: #005ecb;
+    color: white;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
 .exam-options input[type="hidden"] {
     display: none;
 }
