@@ -244,8 +244,7 @@ div#output_controls {
     padding: 8px 12px;
     opacity: 0.5;
     transition: all 0.2s cubic-bezier(0, 0.95, 0.07, 0.78);
-    -in-out;
-    font-weight: 500;
+    font-weight: 550;
 }
 
 .question-label.selected {
