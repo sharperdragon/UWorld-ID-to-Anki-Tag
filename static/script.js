@@ -48,26 +48,6 @@ document.querySelectorAll('.source-btn').forEach(button => {
 let isDragging = false;
 let dragAdd = true;
 
-questionList.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("question-label")) {
-        isDragging = true;
-        dragAdd = !e.target.classList.contains("selected");
-        e.target.classList[dragAdd ? "add" : "remove"]("selected");
-        updateOutput();
-    }
-});
-
-questionList.addEventListener("mouseover", (e) => {
-    if (isDragging && e.target.classList.contains("question-label")) {
-        e.target.classList[dragAdd ? "add" : "remove"]("selected");
-        updateOutput();
-    }
-});
-
-document.addEventListener("mouseup", () => {
-    isDragging = false;
-});
-
 function updateQuestionList() {
     questionList.innerHTML = ""; // Clear previous list
     const inputIDs = inputField.value.trim();
@@ -109,6 +89,28 @@ function updateQuestionList() {
     });
     updateOutput();
 }
+
+// Drag to select logic
+questionList.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("question-label")) {
+        isDragging = true;
+        dragAdd = !e.target.classList.contains("selected");
+    }
+});
+
+questionList.addEventListener("mouseover", (e) => {
+    if (isDragging && e.target.classList.contains("question-label")) {
+        e.target.classList[dragAdd ? "add" : "remove"]("selected");
+        updateOutput();
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    if (isDragging) {
+        isDragging = false;
+        updateOutput();
+    }
+});
 
 function toggleSelection(selectAll) {
     const labels = questionList.querySelectorAll(".question-label");
