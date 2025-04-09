@@ -142,8 +142,6 @@ div#question_list {
     justify-content: flex-start;
     box-sizing: border-box;
     padding: 2px;
-    background-color: #f9f9f9;
-    border: 1px solid #c8c7c7;
     border-radius: 5px;
     cursor: pointer;
     width: calc(10% + 40px); /* 10 questions per row, adjust the width accordingly */
@@ -151,6 +149,16 @@ div#question_list {
     word-wrap: break-word; /* Break long words if necessary */
     max-height: 38px;
     padding: 8px 2px;
+}
+.question_list label :not(.selected) {
+    font-weight:500px;
+    background-color: #f9f9f9;
+    border-color: #c8c7c7;
+    border-width: 1px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.5;
 }
 
 .question-label.selected {
