@@ -117,20 +117,23 @@ document.getElementById("copy_output").addEventListener("click", () => {
 
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
-        const currentValue = document.getElementById('exam_type').value;
+        const examTypeInput = document.getElementById('exam_type');
+        const currentValue = examTypeInput.value;
         const newValue = button.getAttribute('data-source');
 
-        if (currentValue === newValue) {
+        const wasActive = button.classList.contains('active');
+
+        // Clear all buttons' active state
+        document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+
+        if (wasActive) {
             // Deselect if already selected
-            document.getElementById('exam_type').value = "";
+            examTypeInput.value = "";
             localStorage.removeItem("examType");
-            button.classList.remove('active');
         } else {
             // Select new value
-            document.getElementById('exam_type').value = newValue;
+            examTypeInput.value = newValue;
             localStorage.setItem("examType", newValue);
-
-            document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
         }
 
