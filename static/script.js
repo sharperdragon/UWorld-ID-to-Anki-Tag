@@ -146,11 +146,22 @@ document.getElementById("copy_output").addEventListener("click", () => {
 
 document.querySelectorAll('.source-btn').forEach(button => {
     button.addEventListener('click', () => {
-        document.getElementById('exam_type').value = button.getAttribute('data-source');
-        localStorage.setItem("examType", button.getAttribute('data-source'));
+        const currentValue = document.getElementById('exam_type').value;
+        const newValue = button.getAttribute('data-source');
 
-        document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        if (currentValue === newValue) {
+            // Deselect if already selected
+            document.getElementById('exam_type').value = "";
+            localStorage.removeItem("examType");
+            button.classList.remove('active');
+        } else {
+            // Select new value
+            document.getElementById('exam_type').value = newValue;
+            localStorage.setItem("examType", newValue);
+
+            document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
 
         updateOutput();
     });
