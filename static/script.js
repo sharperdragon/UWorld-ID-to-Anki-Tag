@@ -80,11 +80,11 @@ function updateOutput() {
     if (selectedIDs.length > 0) {
         output = "(" + selectedIDs.map(id => {
             if (examType === "COMLEX") {
-                return `tag:*COMLEX::${id}*`;
+                return `tag:re:COMLEX::${id}$`;
             } else if (examType === "STEP") {
-                return `tag:*STEP::${id}*`;
+                return `tag:re:STEP::${id}$`;
             } else {
-                return `tag:*${id}*`;
+                return `tag:re:[^\d]${id}$`;
             }
         }).join(" OR ") + ")";
     }
@@ -92,11 +92,11 @@ function updateOutput() {
     outputField.value = output;
 
     if (examType === "COMLEX") {
-        outputField.placeholder = "tag:*COMLEX::23456*";
+        outputField.placeholder = "tag:re:COMLEX::23456$";
     } else if (examType === "STEP") {
-        outputField.placeholder = "tag:*STEP::23456*";
+        outputField.placeholder = "tag:re:STEP::23456$";
     } else {
-        outputField.placeholder = "tag:*23456*";
+        outputField.placeholder = "tag:re:[^\d]23456$";
     }
 }
 
