@@ -249,7 +249,7 @@ div#output_controls {
 
 .question-label.selected {
     opacity: 1;
-    border: 2px solid #007bff;
+    border: 1.2px solid #007bff !important;
     background-color: #f1f9ff;
 }
 

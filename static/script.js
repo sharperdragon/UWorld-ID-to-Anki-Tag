@@ -84,7 +84,7 @@ function updateOutput() {
             } else if (examType === "STEP") {
                 return `tag:#Zank::#Step1_v12::#UWorld::Step::${id}`;
             } else {
-                return `tag:*${id}*`;
+                return `tag:re:[^\d]${id}$`;
             }
         }).join(" OR ") + ")";
     }
@@ -92,11 +92,11 @@ function updateOutput() {
     outputField.value = output;
 
     if (examType === "COMLEX") {
-        outputField.placeholder = "tag:*COMLEX::23456*";
+        outputField.placeholder = "tag:re:COMLEX::23456$";
     } else if (examType === "STEP") {
-        outputField.placeholder = "tag:*STEP::23456*";
+        outputField.placeholder = "tag:re:STEP::23456$";
     } else {
-        outputField.placeholder = "tag:*23456*";
+        outputField.placeholder = "tag:re:[^\d]23456$";
     }
 }
 
