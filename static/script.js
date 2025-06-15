@@ -80,9 +80,9 @@ function updateOutput() {
     if (selectedIDs.length > 0) {
         output = "(" + selectedIDs.map(id => {
             if (examType === "COMLEX") {
-                return `tag:*COMLEX::${id}*`;
+                return `tag:#Zank::#Step1_v12::#UWorld::COMLEX::${id}`;
             } else if (examType === "STEP") {
-                return `tag:*STEP::${id}*`;
+                return `tag:#Zank::#Step1_v12::#UWorld::Step::${id}`;
             } else {
                 return `tag:*${id}*`;
             }

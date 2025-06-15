@@ -17,8 +17,8 @@ function updateHistoryDropdown() {
     select.innerHTML = '<option value="">-- Select a past output --</option>';
     history.forEach(item => {
         const opt = document.createElement("option");
-        opt.value = item;
-        opt.textContent = item;
+        opt.value = item.value;
+        opt.textContent = item.label;
         select.appendChild(opt);
     });
 }
@@ -26,7 +26,10 @@ function updateHistoryDropdown() {
 function saveToHistory(output) {
     const now = new Date();
     const shortTimestamp = `${now.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-    const timestampedOutput = `${shortTimestamp} → ${output}`;
+    const timestampedOutput = {
+        label: `${shortTimestamp} → ${output}`,
+        value: output
+    };
 
     let history = JSON.parse(localStorage.getItem("conversionHistory")) || [];
     history.unshift(timestampedOutput);
